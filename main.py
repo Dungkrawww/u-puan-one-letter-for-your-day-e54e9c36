@@ -23,12 +23,16 @@ OUT = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
 LETTER = "Z"
 
 
-def main() -> None:
+def validate_letter(letter):
     # Gate rules (sealed scorer): /output/entry.txt must be UTF-8 text of
     # 1 to 1 characters, not only white space.
-    assert len(LETTER) == 1, f"letter is {len(LETTER)} chars, must be 1"
-    assert LETTER.isalpha() and LETTER.isupper(), "must be A-Z"
-    assert LETTER.strip() == LETTER, "no whitespace"
+    assert len(letter) == 1, f"letter is {len(letter)} chars, must be 1"
+    assert letter.isalpha() and letter.isupper(), "must be A-Z"
+    assert letter.strip() == letter, "no whitespace"
+
+
+def main() -> None:
+    validate_letter(LETTER)
 
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "entry.txt"), "w", encoding="utf-8") as f:
